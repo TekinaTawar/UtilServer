@@ -1,8 +1,19 @@
+from os import system
+from subprocess import check_call
+from sys import executable
+
+try: _import_('svglib')
+except ImportError as e:
+    print("Package not present\nInstalling...")
+    check_call([executable, "-m", "pip", "install", 'svglib'])
+import svglib
+
+
 from smtplib import SMTP_SSL
 from email.message import EmailMessage
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-from svglib.svglib import svg2rlg
+from svglib.svglib import svg2rl
 from reportlab.graphics import renderPDF
 
 from PyPDF2 import PdfFileMerger
