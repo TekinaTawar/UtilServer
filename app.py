@@ -6,6 +6,9 @@ import lambda_function
 app = Flask(__name__)
 api = Api(app)
 
+@app.route('/')
+def main():
+    return '<h1>This is the email sender api </h1>'
 
 class SendEmail(Resource):
     def post(self):
