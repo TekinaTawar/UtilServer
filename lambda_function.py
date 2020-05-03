@@ -57,7 +57,7 @@ def generatePdf(data):
         BV=int(((len(data["beveragesL"])+len(data["beveragesXL"]))/16)*100),
         SV=int(((len(data["snacksL"])+len(data["snacksXL"]))/57)*100),
         MCV=int(((len(data["main_coursesL"])+len(data["main_coursesXL"]))/36)*100),
-        OV=int(((len(data["othersL"])+len(data["othersXL"]))/12)*100),
+        OV=int(((len(data["othersL"])+len(data["othersXL"]))/12)*100)
         ).dump("test1.svg")
 
     template = env.get_template('Page2.svg')
@@ -66,7 +66,11 @@ def generatePdf(data):
         snacksL=data["snacksL"]+data["snacksXL"],
         mainCoursesL=data["main_coursesL"]+data["main_coursesXL"],
         othersL=data["othersL"]+data["othersXL"], 
-        height=find_height(data)
+        height=find_height(data),
+        BV=int(((len(data["beveragesL"])+len(data["beveragesXL"]))/16)*100),
+        SV=int(((len(data["snacksL"])+len(data["snacksXL"]))/57)*100),
+        MCV=int(((len(data["main_coursesL"])+len(data["main_coursesXL"]))/36)*100),
+        OV=int(((len(data["othersL"])+len(data["othersXL"]))/12)*100)
     ).dump("test2.svg")
 
     page1 = svglib.svg2rlg(r'test1.svg')
@@ -99,11 +103,11 @@ def find_height(data):
         (len(data["main_coursesL"])+len(data["main_coursesXL"])),
         (len(data["othersL"])+len(data["othersXL"]))
     ])
-    height = 720
+    height = 540
     if max_r <= 11:
         pass
     else:
-        height = 720 + ((max_r - 11)*36)
+        height = 540 + ((max_r - 11)*25)
     return height
 
 def deletefiles():
