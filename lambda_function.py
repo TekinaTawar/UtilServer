@@ -2,13 +2,11 @@ from os import system
 from subprocess import check_call
 from sys import executable
 
-from svglib import svglib
-
-
 from smtplib import SMTP_SSL
 from email.message import EmailMessage
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from svglib import svglib
 from reportlab.graphics import renderPDF
 
 from PyPDF2 import PdfFileMerger
@@ -44,7 +42,8 @@ def sendEmail(data):
     with SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login('survey.foodforu@gmail.com', r"a8u%m68*an?Ku3\ ")
         smtp.send_message(msg)
-
+    
+    print(deletefiles())
     return "email Sent"
 
 
@@ -79,12 +78,8 @@ def generatePdf(data):
 
     paths = glob.glob('*.pdf')
     paths.sort()
+    print(paths)
     merger('ResponseSheet.pdf', paths)
-
-    filesToDel = ['page1.pdf', 'page2.pdf', 'page3.pdf', 'test1.svg', 'test2.svg']
-    for fileToDel in filesToDel:
-        if os.path.exists(fileToDel):
-            os.remove(fileToDel)
     return "pdf generated"
 
 def merger(output_path, input_paths):
@@ -108,5 +103,13 @@ def find_height(data):
     if max_r <= 11:
         pass
     else:
-        height = 720 + ((max_r - 11)*70)
+        height = 720 + ((max_r - 11)*36)
     return height
+
+def deletefiles():
+    filesToDel = ['page1.pdf', 'page2.pdf', 'page3.pdf', 'test1.svg', 'test2.svg', 'ResponseSheet.pdf']
+    for fileToDel in filesToDel:
+        if os.path.exists(fileToDel):
+            os.remove(fileToDel)
+    return "Repository Cleaned"
+    
