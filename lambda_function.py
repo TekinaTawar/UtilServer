@@ -74,7 +74,7 @@ def generatePdf(data):
     renderPDF.drawToFile(page1, "page1.pdf")
     page2 = svglib.svg2rlg(r'test2.svg')
     renderPDF.drawToFile(page2, "page2.pdf")
-    page3 = svglib.svg2rlg(r'.\templates\Page3.svg')
+    page3 = svglib.svg2rlg(r'Page3.svg')
     renderPDF.drawToFile(page3, "page3.pdf")
 
     paths = glob.glob('*.pdf')
