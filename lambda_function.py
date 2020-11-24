@@ -13,6 +13,8 @@ from PyPDF2 import PdfFileMerger
 import glob
 import os
 
+from dikstra import find_most_different
+
 def sendEmail(data):
     msg = EmailMessage()
     msg['Subject'] = 'Your guide to answering: "आज खाने में क्या बनाऊं?"'
@@ -72,6 +74,9 @@ def generatePdf(data):
         MCV=int(((len(data["main_coursesL"])+len(data["main_coursesXL"]))/36)*100),
         OV=int(((len(data["othersL"])+len(data["othersXL"]))/12)*100)
     ).dump("test2.svg")
+
+
+    find_most_different(data["beveragesXL"], data["beveragesL"])
 
     page1 = svglib.svg2rlg(r'test1.svg')
     renderPDF.drawToFile(page1, "page1.pdf")
